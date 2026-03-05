@@ -28,8 +28,11 @@ add_action( 'login_enqueue_scripts', function () {
     $options     = get_option( BML_OPTION_KEY, [] );
     $logo_id     = isset( $options['logo_id'] ) ? absint( $options['logo_id'] ) : 0;
     $brand_color = isset( $options['brand_color'] ) ? sanitize_hex_color( $options['brand_color'] ) : '';
+    $button_hover_color = isset( $options['button_hover_color'] ) ? sanitize_hex_color( $options['button_hover_color'] ) : '';
+    $link_color  = isset( $options['link_color'] ) ? sanitize_hex_color( $options['link_color'] ) : '';
+    $background_color = isset( $options['background_color'] ) ? sanitize_hex_color( $options['background_color'] ) : '';
 
-    if ( ! $logo_id && ! $brand_color ) {
+    if ( ! $logo_id && ! $brand_color && ! $button_hover_color && ! $link_color && ! $background_color ) {
         return;
     }
 
@@ -53,6 +56,29 @@ add_action( 'login_enqueue_scripts', function () {
              .login #nav a, .login #backtoblog a { color: %1$s !important; }
              .login #nav a:hover, .login #backtoblog a:hover { opacity: .8; }',
             esc_attr( $brand_color )
+        );
+    }
+
+    if ( $button_hover_color ) {
+        $inline_css .= sprintf(
+            '.login #loginform .button-primary:hover,
+             .login #loginform .button-primary:focus { background-color: %1$s !important; border-color: %1$s !important; }',
+            esc_attr( $button_hover_color )
+        );
+    }
+
+    if ( $link_color ) {
+        $inline_css .= sprintf(
+            '.login #nav a, .login #backtoblog a { color: %1$s !important; }
+             .login #nav a:hover, .login #backtoblog a:hover { opacity: .8; }',
+            esc_attr( $link_color )
+        );
+    }
+
+    if ( $background_color ) {
+        $inline_css .= sprintf(
+            '.login { background-color: %1$s; }',
+            esc_attr( $background_color )
         );
     }
 

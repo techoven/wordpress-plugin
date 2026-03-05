@@ -43,6 +43,27 @@ class Brand_My_Login_Settings {
             }
         }
 
+        if ( isset( $input['button_hover_color'] ) && $input['button_hover_color'] ) {
+            $color = sanitize_hex_color( $input['button_hover_color'] );
+            if ( $color ) {
+                $output['button_hover_color'] = $color;
+            }
+        }
+
+        if ( isset( $input['link_color'] ) && $input['link_color'] ) {
+            $color = sanitize_hex_color( $input['link_color'] );
+            if ( $color ) {
+                $output['link_color'] = $color;
+            }
+        }
+
+        if ( isset( $input['background_color'] ) && $input['background_color'] ) {
+            $color = sanitize_hex_color( $input['background_color'] );
+            if ( $color ) {
+                $output['background_color'] = $color;
+            }
+        }
+
         return $output;
     }
 
@@ -80,6 +101,9 @@ class Brand_My_Login_Settings {
         $logo_id    = isset( $options['logo_id'] ) ? absint( $options['logo_id'] ) : 0;
         $logo_url   = $logo_id ? wp_get_attachment_image_url( $logo_id, 'medium' ) : '';
         $brand_color = isset( $options['brand_color'] ) ? sanitize_hex_color( $options['brand_color'] ) : '';
+        $button_hover_color = isset( $options['button_hover_color'] ) ? sanitize_hex_color( $options['button_hover_color'] ) : '';
+        $link_color = isset( $options['link_color'] ) ? sanitize_hex_color( $options['link_color'] ) : '';
+        $background_color = isset( $options['background_color'] ) ? sanitize_hex_color( $options['background_color'] ) : '';
         ?>
         <div class="wrap">
             <h1><?php esc_html_e( 'Brand My Login', 'brand-my-login' ); ?></h1>
@@ -108,6 +132,25 @@ class Brand_My_Login_Settings {
                         <th scope="row"><label for="bml-brand-color"><?php esc_html_e( 'Brand Color', 'brand-my-login' ); ?></label></th>
                         <td>
                             <input type="text" id="bml-brand-color" name="<?php echo esc_attr( BML_OPTION_KEY ); ?>[brand_color]" value="<?php echo esc_attr( $brand_color ); ?>" class="regular-text" data-default-color="#2271b1" />
+                            <p class="description"><?php esc_html_e( 'Primary button color and links.', 'brand-my-login' ); ?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="bml-button-hover-color"><?php esc_html_e( 'Button Hover Color', 'brand-my-login' ); ?></label></th>
+                        <td>
+                            <input type="text" id="bml-button-hover-color" name="<?php echo esc_attr( BML_OPTION_KEY ); ?>[button_hover_color]" value="<?php echo esc_attr( $button_hover_color ); ?>" class="regular-text" data-default-color="#1a4f7a" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="bml-link-color"><?php esc_html_e( 'Link Color', 'brand-my-login' ); ?></label></th>
+                        <td>
+                            <input type="text" id="bml-link-color" name="<?php echo esc_attr( BML_OPTION_KEY ); ?>[link_color]" value="<?php echo esc_attr( $link_color ); ?>" class="regular-text" data-default-color="#2271b1" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="bml-background-color"><?php esc_html_e( 'Background Color', 'brand-my-login' ); ?></label></th>
+                        <td>
+                            <input type="text" id="bml-background-color" name="<?php echo esc_attr( BML_OPTION_KEY ); ?>[background_color]" value="<?php echo esc_attr( $background_color ); ?>" class="regular-text" data-default-color="#f0f0f1" />
                         </td>
                     </tr>
                     </tbody>
